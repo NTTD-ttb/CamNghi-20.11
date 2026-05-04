@@ -11,10 +11,6 @@
     <style>
       :root {
         --cam: #e8672a;
-        --cam-nhat: #f5a06a;
-        --hong: #f4c5b0;
-        --nen: #fdf0ec;
-        --trang: #ffffff;
         --xam: #6b6b6b;
         --dam: #2c1a0e;
       }
@@ -23,7 +19,6 @@
         margin: 0;
         padding: 0;
       }
-
       body {
         font-family: "Be Vietnam Pro", sans-serif;
         background: linear-gradient(
@@ -35,14 +30,12 @@
         min-height: 100vh;
         color: var(--dam);
       }
-
       .page {
         display: grid;
         grid-template-columns: 380px 1fr;
         min-height: 100vh;
       }
 
-      /* ===== PANEL TRÁI ===== */
       .panel-trai {
         background: white;
         border-right: 1px solid #f0d8cc;
@@ -55,7 +48,6 @@
         top: 0;
         height: 100vh;
       }
-
       .logo-header {
         text-align: center;
         padding-bottom: 16px;
@@ -73,7 +65,6 @@
         color: var(--xam);
         margin-top: 4px;
       }
-
       .section-label {
         font-size: 11px;
         font-weight: 600;
@@ -83,7 +74,6 @@
         margin-bottom: 8px;
       }
 
-      /* Upload ảnh */
       .upload-zone {
         border: 2px dashed #f0a07a;
         border-radius: 14px;
@@ -92,7 +82,6 @@
         cursor: pointer;
         transition: all 0.2s;
         background: #fff8f5;
-        position: relative;
       }
       .upload-zone:hover {
         border-color: var(--cam);
@@ -129,7 +118,6 @@
         display: none;
       }
 
-      /* Điều chỉnh ảnh */
       .adj-group {
         display: none;
       }
@@ -158,8 +146,6 @@
         min-width: 36px;
         text-align: right;
       }
-
-      /* Di chuyển ảnh hint */
       .move-hint {
         background: #fff8f5;
         border: 1px solid #f0d0b8;
@@ -167,14 +153,9 @@
         padding: 10px 12px;
         font-size: 12px;
         color: var(--xam);
-        display: none;
         line-height: 1.6;
       }
-      .move-hint.show {
-        display: block;
-      }
 
-      /* Inputs */
       .input-wrap {
         margin-bottom: 4px;
       }
@@ -199,7 +180,6 @@
         line-height: 1.6;
       }
 
-      /* Nút tải */
       .btn-tai {
         width: 100%;
         padding: 14px;
@@ -219,12 +199,11 @@
         transform: translateY(-1px);
         box-shadow: 0 6px 20px rgba(232, 103, 42, 0.4);
       }
-      .btn-tai:active {
-        transform: translateY(0);
-      }
-      .btn-tai.loading {
+      .btn-tai:disabled {
         opacity: 0.7;
         cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
       }
 
       .save-status {
@@ -240,7 +219,6 @@
         color: #c62828;
       }
 
-      /* ===== PANEL PHẢI - PREVIEW ===== */
       .panel-phai {
         display: flex;
         flex-direction: column;
@@ -255,7 +233,6 @@
           rgba(232, 103, 42, 0.03) 20px
         );
       }
-
       .preview-label {
         font-size: 12px;
         color: var(--xam);
@@ -264,7 +241,6 @@
         margin-bottom: 12px;
         font-weight: 500;
       }
-
       .canvas-container {
         position: relative;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
@@ -273,13 +249,11 @@
         cursor: crosshair;
         user-select: none;
       }
-
       #previewCanvas {
         display: block;
         max-width: 100%;
         height: auto;
       }
-
       .preview-note {
         margin-top: 12px;
         font-size: 12px;
@@ -290,14 +264,12 @@
   </head>
   <body>
     <div class="page">
-      <!-- PANEL TRÁI -->
       <div class="panel-trai">
         <div class="logo-header">
           <h1>🌻 Kỷ Niệm 43 Năm<br />Ngày Nhà Giáo Việt Nam</h1>
           <p>Điền thông tin → Xem trước → Tải về</p>
         </div>
 
-        <!-- UPLOAD ẢNH -->
         <div>
           <div class="section-label">📷 Ảnh đại diện</div>
           <div
@@ -328,7 +300,6 @@
           />
         </div>
 
-        <!-- ĐIỀU CHỈNH ẢNH -->
         <div class="adj-group" id="adjGroup">
           <div class="section-label">🔧 Điều chỉnh ảnh</div>
           <div class="adj-row">
@@ -343,12 +314,11 @@
             />
             <span id="scaleVal">100%</span>
           </div>
-          <div class="move-hint show" id="moveHint">
+          <div class="move-hint">
             👆 <strong>Kéo ảnh</strong> trong khung tròn để căn chỉnh vị trí
           </div>
         </div>
 
-        <!-- HỌ TÊN -->
         <div class="input-wrap">
           <div class="section-label">👤 Họ và tên</div>
           <input
@@ -360,7 +330,6 @@
           />
         </div>
 
-        <!-- CHỨC VỤ -->
         <div class="input-wrap">
           <div class="section-label">🏷️ Chức vụ</div>
           <input
@@ -372,7 +341,6 @@
           />
         </div>
 
-        <!-- NỘI DUNG -->
         <div class="input-wrap">
           <div class="section-label">✍️ Lời tri ân</div>
           <textarea
@@ -384,14 +352,12 @@
           ></textarea>
         </div>
 
-        <!-- NÚT TẢI -->
         <button class="btn-tai" id="btnTai" onclick="downloadAndSave()">
           ⬇️ Tải ảnh về
         </button>
         <div class="save-status" id="saveStatus"></div>
       </div>
 
-      <!-- PANEL PHẢI -->
       <div class="panel-phai">
         <div class="preview-label">Xem trước — kéo ảnh để căn chỉnh</div>
         <div class="canvas-container" id="canvasWrap">
@@ -400,544 +366,485 @@
         <div class="preview-note">Kích thước xuất: 2048 × 1152 px</div>
       </div>
     </div>
-
     <script>
-            // ===== CẤU HÌNH =====
-            const GOOGLE_SCRIPT_URL =
-              "https://script.google.com/macros/s/AKfycbycXW_48SoqnANZOB6u3zcGg7NGpr34UmOWJl0EE_fxAEcoDX4747HVq_3QGnaQV0O2iA/exec"; // Thay URL Apps Script vào đây
+      const GOOGLE_SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbycXW_48SoqnANZOB6u3zcGg7NGpr34UmOWJl0EE_fxAEcoDX4747HVq_3QGnaQV0O2iA/exec";
 
-            // Kích thước thật canvas (px)
-            const CW = 2048,
-              CH = 1152;
+      const CW = 2048,
+        CH = 1152;
+      const CIRCLE = {
+        x: 150.2 + 543.4 / 2,
+        y: 350.3 + 543.4 / 2,
+        r: 543.4 / 2,
+      };
+      const RECT_CAM = { x: 56.5, y: 914.6, w: 727.1, h: 188.7 };
+      const RECT_ND = { x: 876.2, y: 473.0, w: 1103.5, h: 640.9 };
 
-            // Tọa độ & kích thước các vùng (theo spec)
-            const CIRCLE = {
-              x: 150.2 + 543.4 / 2,
-              y: 350.3 + 543.4 / 2,
-              r: 543.4 / 2,
-            }; // center + radius
-            const RECT_CAM = { x: 56.5, y: 914.6, w: 727.1, h: 188.7 };
-            const RECT_ND = { x: 876.2, y: 473.0, w: 1103.5, h: 640.9 };
+      const bgImg = new Image();
+      let bgLoaded = false;
+      bgImg.onload = () => {
+        bgLoaded = true;
+        redraw();
+      };
+      bgImg.onerror = () => {
+        bgLoaded = false;
+        redraw();
+      };
+      bgImg.src = "background.png";
 
-            // Template background
-            const bgImg = new Image();
-            let bgLoaded = false;
-            // Load ảnh nền từ file (nếu có) hoặc vẽ lập trình
-            bgImg.onload = () => {
-              bgLoaded = true;
-              redraw();
-            };
-            bgImg.onerror = () => {
-              bgLoaded = false;
-              redraw();
-            };
-            bgImg.src = "background.png"; // Đặt file background.png cùng thư mục, nếu không có thì vẽ lập trình
+      let userImg = null,
+        imgX = 0,
+        imgY = 0,
+        imgScale = 1;
+      let isDragging = false,
+        dragStartX = 0,
+        dragStartY = 0,
+        dragImgX = 0,
+        dragImgY = 0;
+      let previewScale = 1;
 
-            // State ảnh người dùng
-            let userImg = null;
-            let imgX = 0,
-              imgY = 0,
-              imgScale = 1;
-            let isDragging = false,
-              dragStartX = 0,
-              dragStartY = 0,
-              dragImgX = 0,
-              dragImgY = 0;
+      const cvs = document.getElementById("previewCanvas");
+      const ctx = cvs.getContext("2d");
+      cvs.width = CW;
+      cvs.height = CH;
 
-            // Scale preview
-            let previewScale = 1;
+      function calcPreviewScale() {
+        const wrap = document.getElementById("canvasWrap");
+        const maxW = wrap.parentElement.clientWidth - 48;
+        const maxH = window.innerHeight - 80;
+        previewScale = Math.min(maxW / CW, maxH / CH, 1);
+        cvs.style.width = CW * previewScale + "px";
+        cvs.style.height = CH * previewScale + "px";
+      }
+      window.addEventListener("resize", calcPreviewScale);
+      calcPreviewScale();
 
-            const cvs = document.getElementById("previewCanvas");
-            const ctx = cvs.getContext("2d");
-            cvs.width = CW;
-            cvs.height = CH;
+      function drawBackground() {
+        if (bgLoaded) {
+          ctx.drawImage(bgImg, 0, 0, CW, CH);
+          return;
+        }
+        let grad = ctx.createLinearGradient(0, 0, CW, CH);
+        grad.addColorStop(0, "#fce0d0");
+        grad.addColorStop(0.5, "#fdf5f0");
+        grad.addColorStop(1, "#fce0d0");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, CW, CH);
+        ctx.fillStyle = "#e8a070";
+        [
+          [400, 120],
+          [600, 80],
+          [900, 70],
+          [1200, 90],
+          [1500, 75],
+          [1800, 100],
+          [350, 160],
+          [700, 140],
+          [1100, 130],
+          [1600, 155],
+        ].forEach(([x, y]) => {
+          ctx.save();
+          ctx.translate(x, y);
+          for (let i = 0; i < 4; i++) {
+            ctx.beginPath();
+            ctx.fillRect(-1, -10, 2, 20);
+            ctx.rotate(Math.PI / 4);
+          }
+          ctx.restore();
+          ctx.beginPath();
+          ctx.arc(x, y, 4, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.fillStyle = "#c85040";
+        ctx.font = "bold 80px serif";
+        ctx.textAlign = "center";
+        ctx.fillText("KỶ NIỆM 43 NĂM NGÀY NHÀ GIÁO VIỆT NAM", CW / 2, 90);
+        ctx.font = "bold 90px serif";
+        ctx.fillText("20 - 11", CW / 2, 190);
+        ctx.fillStyle = "#e8672a";
+        ctx.font = "italic bold 65px Georgia,serif";
+        ctx.textAlign = "left";
+        ctx.fillText("Gửi lời tri ân", RECT_ND.x + 20, RECT_ND.y - 30);
+        drawSunflower(1950, 1080, 120);
+        drawSunflower(1860, 1100, 80);
+        drawStar(100, 830, 36, "#e8a060", 0.8);
+        drawStar(150, 880, 25, "#f0b070", 0.7);
+        drawStar(80, 900, 20, "#e8c090", 0.6);
+      }
 
-            // Tính scale preview theo màn hình
-            function calcPreviewScale() {
-              const wrap = document.getElementById("canvasWrap");
-              const maxW = wrap.parentElement.clientWidth - 48;
-              const maxH = window.innerHeight - 80;
-              previewScale = Math.min(maxW / CW, maxH / CH, 1);
-              cvs.style.width = CW * previewScale + "px";
-              cvs.style.height = CH * previewScale + "px";
-            }
-            window.addEventListener("resize", () => {
-              calcPreviewScale();
-            });
-            calcPreviewScale();
+      function drawSunflower(cx, cy, r) {
+        for (let i = 0; i < 14; i++) {
+          let a = (i / 14) * Math.PI * 2;
+          ctx.beginPath();
+          ctx.ellipse(
+            cx + Math.cos(a) * r * 0.78,
+            cy + Math.sin(a) * r * 0.78,
+            r * 0.22,
+            r * 0.48,
+            a,
+            0,
+            Math.PI * 2,
+          );
+          ctx.fillStyle = "#f5b800";
+          ctx.fill();
+        }
+        ctx.beginPath();
+        ctx.arc(cx, cy, r * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = "#7a4200";
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(cx, cy, r * 0.15, 0, Math.PI * 2);
+        ctx.fillStyle = "#5a3000";
+        ctx.fill();
+      }
+      function drawStar(cx, cy, r, color, alpha) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+          let a = ((i * 4) / 5 - 0.5) * Math.PI;
+          let x = cx + r * Math.cos(a),
+            y = cy + r * Math.sin(a);
+          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+      function roundRect(x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.arcTo(x + w, y, x + w, y + r, r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+        ctx.lineTo(x + r, y + h);
+        ctx.arcTo(x, y + h, x, y + h - r, r);
+        ctx.lineTo(x, y + r);
+        ctx.arcTo(x, y, x + r, y, r);
+        ctx.closePath();
+      }
 
-            // ===== VẼ BACKGROUND =====
-            function drawBackground() {
-              if (bgLoaded) {
-                ctx.drawImage(bgImg, 0, 0, CW, CH);
-                return;
-              }
-              // Vẽ lập trình nếu không có file background
-              let grad = ctx.createLinearGradient(0, 0, CW, CH);
-              grad.addColorStop(0, "#fce0d0");
-              grad.addColorStop(0.5, "#fdf5f0");
-              grad.addColorStop(1, "#fce0d0");
-              ctx.fillStyle = grad;
-              ctx.fillRect(0, 0, CW, CH);
+      function redraw() {
+        ctx.clearRect(0, 0, CW, CH);
+        drawBackground();
 
-              // Trang trí sparkles
-              ctx.fillStyle = "#e8a070";
-              [
-                [400, 120],
-                [600, 80],
-                [900, 70],
-                [1200, 90],
-                [1500, 75],
-                [1800, 100],
-                [350, 160],
-                [700, 140],
-                [1100, 130],
-                [1600, 155],
-              ].forEach(([x, y]) => {
-                ctx.save();
-                ctx.translate(x, y);
-                for (let i = 0; i < 4; i++) {
-                  ctx.beginPath();
-                  ctx.fillRect(-1, -10, 2, 20);
-                  ctx.rotate(Math.PI / 4);
-                }
-                ctx.restore();
-                ctx.beginPath();
-                ctx.arc(x, y, 4, 0, Math.PI * 2);
-                ctx.fill();
-              });
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(CIRCLE.x, CIRCLE.y, CIRCLE.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.9)";
+        ctx.fill();
+        ctx.restore();
 
-              // Tiêu đề
-              ctx.fillStyle = "#c85040";
-              ctx.font = "bold 80px serif";
-              ctx.textAlign = "center";
-              ctx.fillText("KỶ NIỆM 43 NĂM NGÀY NHÀ GIÁO VIỆT NAM", CW / 2, 90);
-              ctx.font = "bold 90px serif";
-              ctx.fillText("20 - 11", CW / 2, 190);
+        if (userImg) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(CIRCLE.x, CIRCLE.y, CIRCLE.r - 4, 0, Math.PI * 2);
+          ctx.clip();
+          const iw = userImg.width * imgScale,
+            ih = userImg.height * imgScale;
+          ctx.drawImage(
+            userImg,
+            CIRCLE.x - iw / 2 + imgX,
+            CIRCLE.y - ih / 2 + imgY,
+            iw,
+            ih,
+          );
+          ctx.restore();
+        }
 
-              // "Gửi lời tri ân"
-              ctx.fillStyle = "#e8672a";
-              ctx.font = "italic bold 65px Georgia, serif";
+        ctx.beginPath();
+        ctx.arc(CIRCLE.x, CIRCLE.y, CIRCLE.r, 0, Math.PI * 2);
+        ctx.strokeStyle = "#e8a060";
+        ctx.lineWidth = 6;
+        ctx.stroke();
+
+        //ctx.save();
+        // roundRect(RECT_CAM.x, RECT_CAM.y, RECT_CAM.w, RECT_CAM.h, 20);
+        // ctx.fillStyle = "#e8672a";
+        // ctx.fill();
+        // ctx.restore();
+
+        const ten = document.getElementById("tenInput").value.trim();
+        const cv = document.getElementById("cvInput").value.trim();
+
+        if (ten) {
+          ctx.fillStyle = "#fff";
+          ctx.font = `bold 58px 'Be Vietnam Pro',sans-serif`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          const tenY = cv
+            ? RECT_CAM.y + RECT_CAM.h * 0.38
+            : RECT_CAM.y + RECT_CAM.h * 0.5;
+          ctx.fillText(ten, RECT_CAM.x + RECT_CAM.w / 2, tenY);
+        }
+        if (cv) {
+          ctx.fillStyle = "rgba(255,255,255,0.9)";
+          ctx.font = `36px 'Be Vietnam Pro',sans-serif`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          const cvY = ten
+            ? RECT_CAM.y + RECT_CAM.h * 0.72
+            : RECT_CAM.y + RECT_CAM.h * 0.5;
+          wrapText(
+            ctx,
+            cv,
+            RECT_CAM.x + RECT_CAM.w / 2,
+            cvY,
+            RECT_CAM.w - 40,
+            42,
+          );
+        }
+        ctx.textBaseline = "alphabetic";
+
+        // ctx.save();
+        // roundRect(RECT_ND.x, RECT_ND.y, RECT_ND.w, RECT_ND.h, 18);
+        // ctx.fillStyle = "rgba(255,255,255,0.88)";
+        // ctx.fill();
+        // ctx.strokeStyle = "#e8a060";
+        // ctx.lineWidth = 4;
+        // ctx.stroke();
+        // ctx.restore();
+
+        const nd = document.getElementById("ndInput").value.trim();
+        if (nd) {
+          ctx.fillStyle = "#3a2010";
+          ctx.font = `38px 'Be Vietnam Pro',sans-serif`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "top";
+          wrapTextJustify(
+            ctx,
+            nd,
+            RECT_ND.x + 40,
+            RECT_ND.y + 40,
+            RECT_ND.w - 80,
+            54,
+          );
+          ctx.textBaseline = "alphabetic";
+        }
+      }
+
+      function wrapText(ctx, text, cx, y, maxW, lineH) {
+        const words = text.split(" ");
+        let line = "",
+          lines = [];
+        for (let w of words) {
+          const test = line + (line ? " " : "") + w;
+          if (ctx.measureText(test).width > maxW && line) {
+            lines.push(line);
+            line = w;
+          } else line = test;
+        }
+        if (line) lines.push(line);
+        const startY = y - (lines.length * lineH) / 2;
+        lines.forEach((l, i) =>
+          ctx.fillText(l, cx, startY + i * lineH + lineH / 2),
+        );
+      }
+
+      function wrapTextJustify(ctx, text, x, y, maxW, lineH) {
+        const paragraphs = text.split("\n");
+        let curY = y;
+        for (const para of paragraphs) {
+          const words = para
+            .trim()
+            .split(" ")
+            .filter((w) => w);
+          if (!words.length) {
+            curY += lineH;
+            continue;
+          }
+          let lines = [],
+            line = [];
+          for (let w of words) {
+            const test = [...line, w].join(" ");
+            if (ctx.measureText(test).width > maxW && line.length) {
+              lines.push(line);
+              line = [w];
+            } else line.push(w);
+          }
+          if (line.length) lines.push(line);
+          for (let li = 0; li < lines.length; li++) {
+            const ln = lines[li];
+            if (curY + lineH > y + RECT_ND.h - 40) break;
+            if (li === lines.length - 1 || ln.length === 1) {
               ctx.textAlign = "left";
-              ctx.fillText("Gửi lời tri ân", RECT_ND.x + 20, RECT_ND.y - 30);
-
-              // Hoa hướng dương (góc phải dưới)
-              drawSunflower(1950, 1080, 120);
-              drawSunflower(1860, 1100, 80);
-
-              // Sao (góc trái dưới)
-              drawStar(100, 830, 36, "#e8a060", 0.8);
-              drawStar(150, 880, 25, "#f0b070", 0.7);
-              drawStar(80, 900, 20, "#e8c090", 0.6);
-            }
-
-            function drawSunflower(cx, cy, r) {
-              for (let i = 0; i < 14; i++) {
-                let a = (i / 14) * Math.PI * 2;
-                ctx.beginPath();
-                ctx.ellipse(
-                  cx + Math.cos(a) * r * 0.78,
-                  cy + Math.sin(a) * r * 0.78,
-                  r * 0.22,
-                  r * 0.48,
-                  a,
-                  0,
-                  Math.PI * 2,
-                );
-                ctx.fillStyle = "#f5b800";
-                ctx.fill();
-              }
-              ctx.beginPath();
-              ctx.arc(cx, cy, r * 0.4, 0, Math.PI * 2);
-              ctx.fillStyle = "#7a4200";
-              ctx.fill();
-              ctx.beginPath();
-              ctx.arc(cx, cy, r * 0.15, 0, Math.PI * 2);
-              ctx.fillStyle = "#5a3000";
-              ctx.fill();
-            }
-
-            function drawStar(cx, cy, r, color, alpha) {
-              ctx.save();
-              ctx.globalAlpha = alpha;
-              ctx.fillStyle = color;
-              ctx.beginPath();
-              for (let i = 0; i < 5; i++) {
-                let a = ((i * 4) / 5 - 0.5) * Math.PI;
-                let x = cx + r * Math.cos(a),
-                  y = cy + r * Math.sin(a);
-                i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-              }
-              ctx.closePath();
-              ctx.fill();
-              ctx.restore();
-            }
-
-            function roundRect(x, y, w, h, r) {
-              ctx.beginPath();
-              ctx.moveTo(x + r, y);
-              ctx.lineTo(x + w - r, y);
-              ctx.arcTo(x + w, y, x + w, y + r, r);
-              ctx.lineTo(x + w, y + h - r);
-              ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
-              ctx.lineTo(x + r, y + h);
-              ctx.arcTo(x, y + h, x, y + h - r, r);
-              ctx.lineTo(x, y + r);
-              ctx.arcTo(x, y, x + r, y, r);
-              ctx.closePath();
-            }
-
-            // ===== VẼ CHÍNH =====
-            function redraw() {
-              ctx.clearRect(0, 0, CW, CH);
-              drawBackground();
-
-              // --- Khung tròn + ảnh người dùng ---
-              ctx.save();
-              ctx.beginPath();
-              ctx.arc(CIRCLE.x, CIRCLE.y, CIRCLE.r, 0, Math.PI * 2);
-              ctx.fillStyle = "rgba(255,255,255,0.9)";
-              ctx.fill();
-              ctx.restore();
-
-              if (userImg) {
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(CIRCLE.x, CIRCLE.y, CIRCLE.r - 4, 0, Math.PI * 2);
-                ctx.clip();
-                const iw = userImg.width * imgScale;
-                const ih = userImg.height * imgScale;
-                ctx.drawImage(
-                  userImg,
-                  CIRCLE.x - iw / 2 + imgX,
-                  CIRCLE.y - ih / 2 + imgY,
-                  iw,
-                  ih,
-                );
-                ctx.restore();
-              }
-
-              // Viền khung tròn
-              ctx.beginPath();
-              ctx.arc(CIRCLE.x, CIRCLE.y, CIRCLE.r, 0, Math.PI * 2);
-              ctx.strokeStyle = "#e8a060";
-              ctx.lineWidth = 6;
-              ctx.stroke();
-
-              // --- Khung cam (họ tên + chức vụ) ---
-              ctx.save();
-              roundRect(RECT_CAM.x, RECT_CAM.y, RECT_CAM.w, RECT_CAM.h, 20);
-              ctx.fillStyle = "#e8672a";
-              ctx.fill();
-              ctx.restore();
-
-              const ten = document.getElementById("tenInput").value.trim();
-              const cv = document.getElementById("cvInput").value.trim();
-
-              if (ten) {
-                ctx.fillStyle = "#fff";
-                ctx.font = `bold 58px 'Be Vietnam Pro', sans-serif`;
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                const tenY = cv
-                  ? RECT_CAM.y + RECT_CAM.h * 0.38
-                  : RECT_CAM.y + RECT_CAM.h * 0.5;
-                ctx.fillText(ten, RECT_CAM.x + RECT_CAM.w / 2, tenY);
-              }
-              if (cv) {
-                ctx.fillStyle = "rgba(255,255,255,0.9)";
-                ctx.font = `36px 'Be Vietnam Pro', sans-serif`;
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                const cvY = ten
-                  ? RECT_CAM.y + RECT_CAM.h * 0.72
-                  : RECT_CAM.y + RECT_CAM.h * 0.5;
-                wrapText(
-                  ctx,
-                  cv,
-                  RECT_CAM.x + RECT_CAM.w / 2,
-                  cvY,
-                  RECT_CAM.w - 40,
-                  42,
-                );
-              }
-              ctx.textBaseline = "alphabetic";
-
-              // --- Khung trắng (nội dung) ---
-              ctx.save();
-              roundRect(RECT_ND.x, RECT_ND.y, RECT_ND.w, RECT_ND.h, 18);
-              ctx.fillStyle = "rgba(255,255,255,0.88)";
-              ctx.fill();
-              ctx.strokeStyle = "#e8a060";
-              ctx.lineWidth = 4;
-              ctx.stroke();
-              ctx.restore();
-
-              const nd = document.getElementById("ndInput").value.trim();
-              if (nd) {
-                ctx.fillStyle = "#3a2010";
-                ctx.font = `38px 'Be Vietnam Pro', sans-serif`;
-                ctx.textAlign = "center";
-                ctx.textBaseline = "top";
-                wrapTextJustify(
-                  ctx,
-                  nd,
-                  RECT_ND.x + 40,
-                  RECT_ND.y + 40,
-                  RECT_ND.w - 80,
-                  54,
-                );
-                ctx.textBaseline = "alphabetic";
-              }
-            }
-
-            // Wrap text thường
-            function wrapText(ctx, text, cx, y, maxW, lineH) {
-              const words = text.split(" ");
-              let line = "";
-              let lines = [];
-              for (let w of words) {
-                const test = line + (line ? " " : "") + w;
-                if (ctx.measureText(test).width > maxW && line) {
-                  lines.push(line);
-                  line = w;
-                } else line = test;
-              }
-              if (line) lines.push(line);
-              const totalH = lines.length * lineH;
-              const startY = y - totalH / 2;
-              lines.forEach((l, i) =>
-                ctx.fillText(l, cx, startY + i * lineH + lineH / 2),
-              );
-            }
-
-            // Wrap text căn đều (justify)
-            function wrapTextJustify(ctx, text, x, y, maxW, lineH) {
-              const paragraphs = text.split("\n");
-              let curY = y;
-              for (const para of paragraphs) {
-                const words = para
-                  .trim()
-                  .split(" ")
-                  .filter((w) => w);
-                if (!words.length) {
-                  curY += lineH;
-                  continue;
-                }
-                let lines = [];
-                let line = [];
-                for (let w of words) {
-                  const test = [...line, w].join(" ");
-                  if (ctx.measureText(test).width > maxW && line.length) {
-                    lines.push(line);
-                    line = [w];
-                  } else line.push(w);
-                }
-                if (line.length) lines.push(line);
-
-                for (let li = 0; li < lines.length; li++) {
-                  const ln = lines[li];
-                  if (curY + lineH > y + RECT_ND.h - 40) break;
-                  // Dòng cuối hoặc 1 từ: căn trái
-                  if (li === lines.length - 1 || ln.length === 1) {
-                    ctx.textAlign = "left";
-                    ctx.fillText(ln.join(" "), x, curY);
-                    ctx.textAlign = "center";
-                  } else {
-                    // Justify
-                    const totalWordW = ln.reduce(
-                      (s, w) => s + ctx.measureText(w).width,
-                      0,
-                    );
-                    const gap = (maxW - totalWordW) / (ln.length - 1);
-                    let cx2 = x;
-                    for (let w of ln) {
-                      ctx.textAlign = "left";
-                      ctx.fillText(w, cx2, curY);
-                      cx2 += ctx.measureText(w).width + gap;
-                    }
-                  }
-                  curY += lineH;
-                }
-              }
+              ctx.fillText(ln.join(" "), x, curY);
               ctx.textAlign = "center";
-            }
-
-            // ===== XỬ LÝ ẢNH =====
-            function handleFile(e) {
-              const file = e.target.files[0];
-              if (!file) return;
-              const reader = new FileReader();
-              reader.onload = (ev) => {
-                const img = new Image();
-                img.onload = () => {
-                  userImg = img;
-                  // Tự fit ảnh vào khung tròn
-                  const fit = Math.max(
-                    (CIRCLE.r * 2) / img.width,
-                    (CIRCLE.r * 2) / img.height,
-                  );
-                  imgScale = fit;
-                  imgX = 0;
-                  imgY = 0;
-                  document.getElementById("scaleSlider").value = Math.round(
-                    fit * 100,
-                  );
-                  document.getElementById("scaleVal").textContent =
-                    Math.round(fit * 100) + "%";
-                  document.getElementById("adjGroup").classList.add("show");
-                  document.getElementById("uploadZone").classList.add("has-img");
-                  document.getElementById("uploadZone").querySelector("p").innerHTML =
-                    "<strong>✓ Đã chọn ảnh</strong><br>Nhấn để thay ảnh khác";
-                  redraw();
-                };
-                img.src = ev.target.result;
-              };
-              reader.readAsDataURL(file);
-            }
-
-            function updateScale(el) {
-              imgScale = el.value / 100;
-              document.getElementById("scaleVal").textContent = el.value + "%";
-              redraw();
-            }
-
-            // ===== KÉO ẢNH TRONG KHUNG TRÒN =====
-            function canvasCoord(e) {
-              const rect = cvs.getBoundingClientRect();
-              const scaleX = CW / rect.width;
-              const scaleY = CH / rect.height;
-              const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-              const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-              return {
-                x: (clientX - rect.left) * scaleX,
-                y: (clientY - rect.top) * scaleY,
-              };
-            }
-
-            function inCircle(px, py) {
-              return Math.hypot(px - CIRCLE.x, py - CIRCLE.y) <= CIRCLE.r;
-            }
-
-            cvs.addEventListener("mousedown", (e) => {
-              const p = canvasCoord(e);
-              if (userImg && inCircle(p.x, p.y)) {
-                isDragging = true;
-                dragStartX = p.x;
-                dragStartY = p.y;
-                dragImgX = imgX;
-                dragImgY = imgY;
-                cvs.style.cursor = "grabbing";
+            } else {
+              const totalWordW = ln.reduce(
+                (s, w) => s + ctx.measureText(w).width,
+                0,
+              );
+              const gap = (maxW - totalWordW) / (ln.length - 1);
+              let cx2 = x;
+              for (let w of ln) {
+                ctx.textAlign = "left";
+                ctx.fillText(w, cx2, curY);
+                cx2 += ctx.measureText(w).width + gap;
               }
-            });
-            cvs.addEventListener("mousemove", (e) => {
-              if (!isDragging) return;
-              const p = canvasCoord(e);
-              imgX = dragImgX + (p.x - dragStartX);
-              imgY = dragImgY + (p.y - dragStartY);
-              redraw();
-            });
-            cvs.addEventListener("mouseup", () => {
-              isDragging = false;
-              cvs.style.cursor = "crosshair";
-            });
-            cvs.addEventListener("mouseleave", () => {
-              isDragging = false;
-            });
+            }
+            curY += lineH;
+          }
+        }
+        ctx.textAlign = "center";
+      }
 
-            cvs.addEventListener(
-              "touchstart",
-              (e) => {
-                e.preventDefault();
-                const p = canvasCoord(e);
-                if (userImg && inCircle(p.x, p.y)) {
-                  isDragging = true;
-                  dragStartX = p.x;
-                  dragStartY = p.y;
-                  dragImgX = imgX;
-                  dragImgY = imgY;
-                }
-              },
-              { passive: false },
+      function handleFile(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            userImg = img;
+            const fit = Math.max(
+              (CIRCLE.r * 2) / img.width,
+              (CIRCLE.r * 2) / img.height,
             );
-            cvs.addEventListener(
-              "touchmove",
-              (e) => {
-                e.preventDefault();
-                if (!isDragging) return;
-                const p = canvasCoord(e);
-                imgX = dragImgX + (p.x - dragStartX);
-                imgY = dragImgY + (p.y - dragStartY);
-                redraw();
-              },
-              { passive: false },
+            imgScale = fit;
+            imgX = 0;
+            imgY = 0;
+            document.getElementById("scaleSlider").value = Math.round(
+              fit * 100,
             );
-            cvs.addEventListener("touchend", () => {
-              isDragging = false;
-            });
-
-            // ===== TẢI ẢNH + LƯU GOOGLE SHEET =====
-            // async function downloadAndSave() {
-            //   const btn = document.getElementById("btnTai");
-            //   const status = document.getElementById("saveStatus");
-            //   btn.classList.add("loading");
-            //   btn.textContent = "Đang xử lý...";
-            //   status.textContent = "";
-            //   status.className = "save-status";
-
-            //   redraw();
-
-            //   // Tải ảnh về
-            //   const a = document.createElement("a");
-            //   a.download = "ky-niem-20-11.png";
-            //   a.href = cvs.toDataURL("image/png");
-            //   a.click();
-
-            //   // Gửi dữ liệu lên Google Sheet
-            //   const ten = document.getElementById("tenInput").value.trim();
-            //   const cv = document.getElementById("cvInput").value.trim();
-            //   const nd = document.getElementById("ndInput").value.trim();
-
-            //   try {
-            //     await fetch(GOOGLE_SCRIPT_URL, {
-            //       method: "POST",
-            //       mode: "no-cors",
-            //       headers: { "Content-Type": "application/json" },
-            //       body: JSON.stringify({
-            //         hoTen: ten,
-            //         chucVu: cv,
-            //         noiDung: nd,
-            //         thoiGian: new Date().toLocaleString("vi-VN"),
-            //       }),
-            //     });
-            //     status.textContent = "✓ Đã lưu thông tin thành công";
-            //     status.className = "save-status ok";
-            //   } catch (err) {
-            //     status.textContent =
-            //       "⚠ Không thể lưu thông tin (kiểm tra URL Apps Script)";
-            //     status.className = "save-status err";
-            //   }
-
-            //   btn.classList.remove("loading");
-            //   btn.textContent = "⬇️ Tải ảnh về";
-            // }
-      // Lấy ảnh dạng base64 (bỏ phần "data:image/png;base64,")
-      const base64 = cvs.toDataURL('image/png').split(',')[1];
-
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          hoTen: ten,
-          chucVu: cv,
-          noiDung: nd,
-          thoiGian: new Date().toLocaleString('vi-VN'),
-          imageBase64: base64
-        })
-      });
-            // Khởi tạo
+            document.getElementById("scaleVal").textContent =
+              Math.round(fit * 100) + "%";
+            document.getElementById("adjGroup").classList.add("show");
+            document.getElementById("uploadZone").classList.add("has-img");
+            document.getElementById("uploadZone").querySelector("p").innerHTML =
+              "<strong>✓ Đã chọn ảnh</strong><br>Nhấn để thay ảnh khác";
             redraw();
+          };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function updateScale(el) {
+        imgScale = el.value / 100;
+        document.getElementById("scaleVal").textContent = el.value + "%";
+        redraw();
+      }
+
+      function canvasCoord(e) {
+        const rect = cvs.getBoundingClientRect();
+        const scaleX = CW / rect.width,
+          scaleY = CH / rect.height;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: (clientX - rect.left) * scaleX,
+          y: (clientY - rect.top) * scaleY,
+        };
+      }
+      function inCircle(px, py) {
+        return Math.hypot(px - CIRCLE.x, py - CIRCLE.y) <= CIRCLE.r;
+      }
+
+      cvs.addEventListener("mousedown", (e) => {
+        const p = canvasCoord(e);
+        if (userImg && inCircle(p.x, p.y)) {
+          isDragging = true;
+          dragStartX = p.x;
+          dragStartY = p.y;
+          dragImgX = imgX;
+          dragImgY = imgY;
+          cvs.style.cursor = "grabbing";
+        }
+      });
+      cvs.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const p = canvasCoord(e);
+        imgX = dragImgX + (p.x - dragStartX);
+        imgY = dragImgY + (p.y - dragStartY);
+        redraw();
+      });
+      cvs.addEventListener("mouseup", () => {
+        isDragging = false;
+        cvs.style.cursor = "crosshair";
+      });
+      cvs.addEventListener("mouseleave", () => {
+        isDragging = false;
+      });
+      cvs.addEventListener(
+        "touchstart",
+        (e) => {
+          e.preventDefault();
+          const p = canvasCoord(e);
+          if (userImg && inCircle(p.x, p.y)) {
+            isDragging = true;
+            dragStartX = p.x;
+            dragStartY = p.y;
+            dragImgX = imgX;
+            dragImgY = imgY;
+          }
+        },
+        { passive: false },
+      );
+      cvs.addEventListener(
+        "touchmove",
+        (e) => {
+          e.preventDefault();
+          if (!isDragging) return;
+          const p = canvasCoord(e);
+          imgX = dragImgX + (p.x - dragStartX);
+          imgY = dragImgY + (p.y - dragStartY);
+          redraw();
+        },
+        { passive: false },
+      );
+      cvs.addEventListener("touchend", () => {
+        isDragging = false;
+      });
+
+      async function downloadAndSave() {
+        const btn = document.getElementById("btnTai");
+        const status = document.getElementById("saveStatus");
+        btn.disabled = true;
+        btn.textContent = "⏳ Đang xử lý...";
+        status.textContent = "";
+        status.className = "save-status";
+
+        redraw();
+
+        // Tải ảnh về máy
+        const a = document.createElement("a");
+        a.download = "ky-niem-20-11.png";
+        a.href = cvs.toDataURL("image/png");
+        a.click();
+
+        const ten = document.getElementById("tenInput").value.trim();
+        const cv = document.getElementById("cvInput").value.trim();
+        const nd = document.getElementById("ndInput").value.trim();
+        const base64 = cvs.toDataURL("image/png").split(",")[1];
+
+        try {
+          await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              hoTen: ten,
+              chucVu: cv,
+              noiDung: nd,
+              thoiGian: new Date().toLocaleString("vi-VN"),
+              imageBase64: base64,
+            }),
+          });
+          status.textContent = "✓ Đã lưu thông tin thành công";
+          status.className = "save-status ok";
+        } catch (err) {
+          status.textContent = "⚠ Không thể lưu (kiểm tra URL Apps Script)";
+          status.className = "save-status err";
+        }
+
+        btn.disabled = false;
+        btn.textContent = "⬇️ Tải ảnh về";
+      }
+
+      redraw();
     </script>
   </body>
 </html>
